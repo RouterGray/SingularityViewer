@@ -36,6 +36,7 @@
 #include "jcfloaterareasearch.h"
 
 #include "llfiltereditor.h"
+#include "llscrolllistcolumn.h"
 #include "llscrolllistctrl.h"
 #include "llscrolllistitem.h"
 #include "lluictrlfactory.h"
@@ -45,7 +46,6 @@
 #include "lltracker.h"
 #include "llviewerobjectlist.h"
 
-const std::string request_string = "JCFloaterAreaSearch::Requested_\xF8\xA7\xB5";
 const F32 min_refresh_interval = 0.25f;	// Minimum interval between list refreshes in seconds.
 
 JCFloaterAreaSearch::JCFloaterAreaSearch(const LLSD& data) :
@@ -162,7 +162,7 @@ void JCFloaterAreaSearch::onCommitLine(LLUICtrl* caller, const LLSD& value, OBJE
 	std::string text = value.asString();
 	LLStringUtil::toLower(text);
 	caller->setValue(text);
- 	mFilterStrings[type] = text;
+	mFilterStrings[type] = text;
 	//LL_INFOS() << "loaded " << name << " with "<< text << LL_ENDL;
 	checkRegion();
 	results();
@@ -240,23 +240,32 @@ void JCFloaterAreaSearch::results()
 							(mFilterStrings[LIST_OBJECT_GROUP].empty() || object_group.find(mFilterStrings[LIST_OBJECT_GROUP]) != std::string::npos))
 						{
 							//LL_INFOS() << "pass" << LL_ENDL;
-							LLSD element;
-							element["id"] = object_id;
-							element["columns"][LIST_OBJECT_NAME]["column"] = "Name";
-							element["columns"][LIST_OBJECT_NAME]["type"] = "text";
-							element["columns"][LIST_OBJECT_NAME]["value"] = it->second.name;
-							element["columns"][LIST_OBJECT_DESC]["column"] = "Description";
-							element["columns"][LIST_OBJECT_DESC]["type"] = "text";
-							element["columns"][LIST_OBJECT_DESC]["value"] = it->second.desc;
-							element["columns"][LIST_OBJECT_OWNER]["column"] = "Owner";
-							element["columns"][LIST_OBJECT_OWNER]["type"] = "text";
-							element["columns"][LIST_OBJECT_OWNER]["value"] = onU;
-							element["columns"][LIST_OBJECT_GROUP]["column"] = "Group";
-							element["columns"][LIST_OBJECT_GROUP]["type"] = "text";
-							element["columns"][LIST_OBJECT_GROUP]["value"] = cnU;			//ai->second;
-							mResultList->addElement(element, ADD_BOTTOM);
+							LLScrollListItem::Params element;
+							element.value = object_id;
+
+							LLScrollListCell::Params name;
+							name.column = "Name";
+							name.value = it->second.name;
+
+							LLScrollListCell::Params desc;
+							desc.column = "Description";
+							desc.value = it->second.desc;
+
+							LLScrollListCell::Params owner;
+							owner.column = "Owner";
+							owner.value = onU;
+
+							LLScrollListCell::Params group;
+							group.column = "Group";
+							group.value = cnU;
+
+							element.columns.add(name);
+							element.columns.add(desc);
+							element.columns.add(owner);
+							element.columns.add(group);
+
+							mResultList->addRow(element);
 						}
-						
 					}
 				}
 			}
