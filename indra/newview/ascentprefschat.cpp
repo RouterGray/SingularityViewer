@@ -253,6 +253,7 @@ void LLPrefsAscentChat::refreshValues()
 	mLandManagementNames            = gSavedSettings.getS32("LandManagementNameSystem");
 	mRadarNames                     = gSavedSettings.getS32("RadarNameSystem");
 	mSpeakerNames                   = gSavedSettings.getS32("SpeakerNameSystem");
+	mAreaSearchNames                = gSavedSettings.getS32("AreaSearchNameSystem");
 
 	//Autoresponse ------------------------------------------------------------------------
 	mIMResponseRepeat            = gSavedPerAccountSettings.getBOOL("AscentInstantMessageResponseRepeat");
@@ -344,6 +345,8 @@ void LLPrefsAscentChat::refresh()
 		combo->setCurrentByIndex(mRadarNames);
 	if (combo = getChild<LLComboBox>("speaker_namesystem_combobox"))
 		combo->setCurrentByIndex(mSpeakerNames);
+	if (combo = getChild<LLComboBox>("areasearch_namesystem_combobox"))
+		combo->setCurrentByIndex(mAreaSearchNames);
 
     //Text Options ------------------------------------------------------------------------
     combo = getChild<LLComboBox>("SpellBase");
@@ -493,6 +496,7 @@ void LLPrefsAscentChat::cancel()
 	gSavedSettings.setS32("LandManagementNameSystem",              mLandManagementNames);
 	gSavedSettings.setS32("RadarNameSystem",                       mRadarNames);
 	gSavedSettings.setS32("SpeakerNameSystem",                     mSpeakerNames);
+	gSavedSettings.setS32("AreaSearchNameSystem",                  mAreaSearchNames);
 
 	//Autoresponse ------------------------------------------------------------------------
 	gSavedPerAccountSettings.setBOOL("AscentInstantMessageResponseRepeat", mIMResponseRepeat);

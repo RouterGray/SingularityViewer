@@ -38,10 +38,14 @@
 #include "lluuid.h"
 #include "llstring.h"
 #include "llframetimer.h"
+#include "llsaleinfo.h"
 
 class LLTextBox;
 class LLScrollListCtrl;
 class LLViewerRegion;
+class LLViewerObject;
+class LLObjectSelection;
+class LLSelectNode;
 
 class JCFloaterAreaSearch : public LLFloater, public LLFloaterSingleton<JCFloaterAreaSearch>
 {
@@ -54,7 +58,28 @@ public:
 	/*virtual*/ void onOpen();
 
 	void results();
-	static void processObjectPropertiesFamily(LLMessageSystem* msg, void** user_data);
+	static void update();
+	static void receiveObjectProperties(LLUUID object_id, std::string name, std::string desc, LLSaleInfo sale_info, LLUUID owner_id, LLUUID group_id, LLUUID last_owner_id, LLUUID creator_id);
+	LLViewerObject* getSelectedObject();
+	void onClickEdit();
+	void onClickInspect();
+	void onClickDerender();
+	void onClickTeleport();
+	void onClickLook();
+	void onClickTrack();
+	void onClickUnTrack();
+	void onTogglePaused();
+	void onRefresh();
+	void onClickOwnerProfile();
+	void onClickGroupProfile();
+	void onClickCreatorProfile();
+	void onClickLastOwnerProfile();
+	void checkRegion(bool force_clear = false);
+
+	/*virtual*/ BOOL handleRightMouseDown(S32 x, S32 y, MASK mask);
+
+protected:
+	LLSafeHandle<LLObjectSelection> mObjectSelection;
 
 private:
 
@@ -62,39 +87,58 @@ private:
 	{
 		LIST_OBJECT_NAME = 0,
 		LIST_OBJECT_DESC,
+		LIST_OBJECT_PRIMS,
+		LIST_OBJECT_IMPACT,
+		LIST_OBJECT_PRICE,
 		LIST_OBJECT_OWNER,
 		LIST_OBJECT_GROUP,
+		LIST_OBJECT_LAST_OWNER,
+		LIST_OBJECT_CREATOR,
 		LIST_OBJECT_COUNT
 	};
 
-	void checkRegion(bool force_clear = false);
-	void onStop();
-	void onRefresh();
+	void onGetOwnerNameCallback(const LLUUID& id);
+	void onGetLastOwnerNameCallback(const LLUUID& id);
+	void onGetCreatorNameCallback(const LLUUID& id);
+
 	void onCommitLine(LLUICtrl* caller, const LLSD& value, OBJECT_COLUMN_ORDER type);
-	bool requestIfNeeded(LLUUID object_id);
-	class LLViewerObject* getSelectedObject();
+	void onCheckCaseSensitive();
+	bool canSelect(LLViewerObject* objectp);
+	bool list_wants(LLViewerObject* objectp);
+	bool requestIfNeeded(LLUUID object_id, LLViewerObject* objectp);
+
 	void onDoubleClick();
-	void teleportToSelected();
-	void lookAtSelected();
 
 	LLTextBox* mCounterText;
 	LLScrollListCtrl* mResultList;
 	LLFrameTimer mLastUpdateTimer;
 	LLViewerRegion* mLastRegion;
-	bool mStopped;
+	bool mPaused;
+	bool mRegionChecked;
+	bool mFirstRun;
+	bool mCaseSensitive;
 
 	struct ObjectData
 	{
-		LLUUID id;
+		LLUUID object_id;
 		std::string name;
 		std::string desc;
 		LLUUID owner_id;
 		LLUUID group_id;
+		LLUUID creator_id;
+		LLUUID last_owner_id;
+		LLSaleInfo sale_info;
 	};
 	std::set<LLUUID> mPendingObjects;
 	std::map<LLUUID, ObjectData> mCachedObjects;
 
 	std::string mFilterStrings[LIST_OBJECT_COUNT];
+
+	std::map<LLUUID, boost::signals2::scoped_connection> mOwnerNameCacheConnection;
+	std::map<LLUUID, boost::signals2::scoped_connection> mLastOwnerNameCacheConnection;
+	std::map<LLUUID, boost::signals2::scoped_connection> mCreatorNameCacheConnection;
+
+	
 };
 
 #endif

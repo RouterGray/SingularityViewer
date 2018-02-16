@@ -25,6 +25,17 @@
 			<key>Value</key>
 			<integer>0</integer>
 		</map>
+		<key>AreaSearchNameSystem</key>
+		<map>
+		  <key>Comment</key>
+		  <string>For area search list names. 0 = Old Style, 1 = Display Names and Username, 2 = Displayname only, 3 = Old Style (Display Name)</string>
+		  <key>Persist</key>
+		  <integer>1</integer>
+		  <key>Type</key>
+		  <string>S32</string>
+		  <key>Value</key>
+		  <integer>0</integer>
+		</map>
 		<key>FriendNameSystem</key>
 		<map>
 		  <key>Comment</key>

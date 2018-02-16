@@ -183,6 +183,7 @@ class AIHTTPView;
 void add_wave_listeners();
 void add_dae_listeners();
 void add_radar_listeners();
+void add_areasearch_listeners();
 //extern BOOL	gHideSelectedObjects;
 //extern BOOL gAllowSelectAvatar;
 //extern BOOL gDebugAvatarRotation;
@@ -192,7 +193,7 @@ extern BOOL gDebugTextEditorTips;
 extern BOOL gShowOverlayTitle;
 extern BOOL gOcclusionCull;
 extern AIHTTPView* gHttpView;
-extern LLMenuGL* sScrollListMenus[1];
+extern LLMenuGL* sScrollListMenus[2];
 //
 // Globals
 //
@@ -731,7 +732,8 @@ void init_menus()
 
 	// Singu Note: Initialize common ScrollListMenus here
 	sScrollListMenus[0] = LLUICtrlFactory::getInstance()->buildMenu("menu_avs_list.xml", gMenuHolder);
-	//sScrollListMenus[1] = LLUICtrlFactory::getInstance()->buildMenu("menu_groups_list.xml"); // Singu TODO
+	sScrollListMenus[1] = LLUICtrlFactory::getInstance()->buildMenu("menu_obj_list.xml", gMenuHolder);
+	//sScrollListMenus[2] = LLUICtrlFactory::getInstance()->buildMenu("menu_groups_list.xml"); // Singu TODO
 
 	LLView* ins = gMenuBarView->getChildView("insert_world", true, false);
 	ins->setVisible(false);
@@ -9601,6 +9603,7 @@ void initialize_menus()
 	addMenu(new ListToggleMute(), "List.ToggleMute");
 
 	add_radar_listeners();
+	add_areasearch_listeners();
 
 	class LLViewBuildMode : public view_listener_t
 	{

@@ -93,6 +93,7 @@ private:
 	S32 mLandManagementNames;
 	S32 mRadarNames;
 	S32 mSpeakerNames;
+	S32 mAreaSearchNames;
 
 	//Autoresponse ------------------------------------------------------------------------
 	bool mIMResponseRepeat;

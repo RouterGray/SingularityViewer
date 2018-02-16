@@ -62,6 +62,7 @@
 #include "llhudeffecttrail.h"
 #include "llhudmanager.h"
 #include "llinventorymodel.h"
+#include "jcfloaterareasearch.h"
 #include "llmenugl.h"
 #include "llmeshrepository.h"
 #include "llmutelist.h"
@@ -5193,9 +5194,11 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 		} func(id);
 		LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstNode(&func);
 
+		// This is a spam-bomb when Area Search is running, defuse it. - RG
 		if (!node)
 		{
-			LL_WARNS() << "Couldn't find object " << id << " selected." << LL_ENDL;
+			if (!JCFloaterAreaSearch::instanceVisible())
+				LL_WARNS() << "Couldn't find object " << id << " selected." << LL_ENDL;
 		}
 		else
 		{
@@ -5265,6 +5268,10 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 			node->mInventorySerial = inv_serial;
 			node->mSitName.assign(sit_name);
 			node->mTouchName.assign(touch_name);
+		}
+		if (JCFloaterAreaSearch::instanceVisible())
+		{
+			JCFloaterAreaSearch::receiveObjectProperties(id, name, desc, sale_info, owner_id, group_id, last_owner_id, creator_id);
 		}
 	}
 

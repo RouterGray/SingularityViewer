@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<menu name="Area Search Menu">
+  <menu_item_call label="Edit" name="Edit">
+    <on_click function="AreaSearch.Edit"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="Inspect" name="Inspect">
+    <on_click function="AreaSearch.Inspect"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="Derender" name="Derender">
+    <on_click function="AreaSearch.Derender"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="Track" name="Track">
+    <on_click function="AreaSearch.Track"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="UnTrack" name="UnTrack">
+    <on_click function="AreaSearch.UnTrack"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="Look" name="Look">
+    <on_click function="AreaSearch.Look"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu_item_call label="Teleport" name="Teleport">
+    <on_click function="AreaSearch.Teleport"/>
+    <on_enable function="List.EnableSingleSelected"/>
+  </menu_item_call>
+  <menu label="Profiles" name="Profiles" create_jump_keys="true">
+	<menu_item_call label="Owner" name="Owner">
+	  <on_click function="AreaSearch.Owner"/>	
+	  <on_enable function="List.EnableSingleSelected"/>
+	</menu_item_call>
+	<menu_item_call label="Group" name="Group">
+	  <on_click function="AreaSearch.Group"/>
+	  <on_enable function="List.EnableSingleSelected"/>
+	</menu_item_call>
+	<menu_item_call label="Last Owner" name="Last Owner">
+      <on_click function="AreaSearch.Last Owner"/>
+      <on_enable function="List.EnableSingleSelected"/>
+	</menu_item_call>
+	<menu_item_call label="Creator" name="Creator">
+      <on_click function="AreaSearch.Creator"/>
+      <on_enable function="List.EnableSingleSelected"/>
+	</menu_item_call>
+  </menu>
+  <menu_item_separator/>
+  <menu_item_call label="(Un)Pause" name="(Un)Pause">
+    <on_click function="AreaSearch.(Un)Pause"/>
+  </menu_item_call>
+  <menu_item_call label="Refresh" name="Refresh">
+    <on_click function="AreaSearch.Refresh"/>
+  </menu_item_call>
+</menu>

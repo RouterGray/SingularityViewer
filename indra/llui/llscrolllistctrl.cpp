@@ -57,7 +57,7 @@
 
 static LLRegisterWidget<LLScrollListCtrl> r("scroll_list");
 
-LLMenuGL* sScrollListMenus[1] = {}; // List menus that recur, such as general avatars or groups menus
+LLMenuGL* sScrollListMenus[2] = {}; // List menus that recur, such as general avatars or objects or groups menus
 
 // local structures & classes.
 struct SortScrollListItem
@@ -2573,7 +2573,7 @@ void LLScrollListCtrl::setScrollListParameters(LLXMLNodePtr node)
 	if (node->hasAttribute("menu_num"))
 	{
 		// Some scroll lists use common menus identified by number
-		// 0 is menu_avs_list.xml, 1 will be for groups, 2 could be for lists of objects
+		// 0 is menu_avs_list.xml, 1 is for menu_obj_list.xml, 2 will be for groups
 		S32 menu_num;
 		node->getAttributeS32("menu_num", menu_num);
 		mPopupMenu = sScrollListMenus[menu_num];

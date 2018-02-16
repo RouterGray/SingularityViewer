@@ -61,6 +61,7 @@
 #include "lldir.h"
 #include "lleventpoll.h"
 #include "llfloateravatarlist.h"
+#include "jcfloaterareasearch.h"
 #include "llfloatergodtools.h"
 #include "llfloaterperms.h"
 #include "llfloaterreporter.h"
@@ -1356,6 +1357,10 @@ public:
 			inst.updateAvatarList(region);
 			inst.expireAvatarList(map_avids);
 		}
+		if (JCFloaterAreaSearch::instanceVisible())
+		{
+			JCFloaterAreaSearch::update();
+		}
 	}
 };
 
@@ -1433,6 +1438,10 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 		LLFloaterAvatarList& inst(LLFloaterAvatarList::instance());
 		inst.updateAvatarList(this);
 		inst.expireAvatarList(map_avids);
+	}
+	if (JCFloaterAreaSearch::instanceVisible())
+	{
+		JCFloaterAreaSearch::update();
 	}
 }
 
