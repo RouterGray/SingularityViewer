@@ -299,6 +299,7 @@ target_link_libraries(
     ${Boost_SYSTEM_LIBRARY}
     ${CORESERVICES_LIBRARY}
     ${URIPARSER_LIBRARY}
+    ${FMT_LIBRARY}
     nlohmann_json::nlohmann_json
     ${RT_LIBRARY}
     )

@@ -86,4 +86,5 @@ target_link_libraries(llappearance
     ${LLMATH_LIBRARIES}
     ${LLXML_LIBRARIES}
     ${LLCOMMON_LIBRARIES}
+    ${FMT_LIBRARY}
     )

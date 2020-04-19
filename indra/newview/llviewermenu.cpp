@@ -684,9 +684,9 @@ void init_menus()
 
 	std::string symbol = gHippoGridManager->getConnectedGrid()->getCurrencySymbol();
 	auto& benefits = LLAgentBenefitsMgr::current();
-	const std::string texture_upload_cost_str = symbol + std::to_string(benefits.getTextureUploadCost());
-	const std::string sound_upload_cost_str = symbol + std::to_string(benefits.getSoundUploadCost());
-	const std::string animation_upload_cost_str = symbol + std::to_string(benefits.getAnimationUploadCost());
+	const std::string texture_upload_cost_str = symbol + fmt::to_string(benefits.getTextureUploadCost());
+	const std::string sound_upload_cost_str = symbol + fmt::to_string(benefits.getSoundUploadCost());
+	const std::string animation_upload_cost_str = symbol + fmt::to_string(benefits.getAnimationUploadCost());
 	gMenuHolder->childSetLabelArg("Upload Image", "[UPLOADFEE]", texture_upload_cost_str);
 	gMenuHolder->childSetLabelArg("Upload Sound", "[UPLOADFEE]", sound_upload_cost_str);
 	gMenuHolder->childSetLabelArg("Upload Animation", "[UPLOADFEE]", animation_upload_cost_str);

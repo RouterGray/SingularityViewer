@@ -2380,7 +2380,7 @@ std::string LLDAELoader::getElementLabel(daeElement *element)
 
 		if (ind > 0)
 		{
-			index_string = "_" + boost::lexical_cast<std::string>(ind);
+			index_string = "_" + fmt::to_string(ind);
 		}
 
 		// if parent has a name or ID, use it
