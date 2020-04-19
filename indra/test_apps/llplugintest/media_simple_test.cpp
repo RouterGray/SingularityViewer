@@ -32,8 +32,8 @@
 
 #include <string>
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 #if LL_DARWIN
 	#include <GLUT/glut.h>

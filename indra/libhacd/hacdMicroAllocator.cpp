@@ -39,8 +39,8 @@
 
 #include <new>
 #include <assert.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 
 #ifdef WIN32
 #include <windows.h>
@@ -875,7 +875,7 @@ static NxU32 timeGetTime(void)
 	return 0;
 }
 #endif
-#include <stdio.h>
+#include <cstdio>
 
 void performUnitTests(void)
 {

@@ -159,11 +159,11 @@
 #include "lltimer.h"
 #include <intrin.h>
 #elif LL_LINUX || LL_SOLARIS
-#include <sys/time.h>
+#include <ctime>
 #include <sched.h>
 #include "lltimer.h"
 #elif LL_DARWIN
-#include <sys/time.h>
+#include <ctime>
 #include "lltimer.h"	// get_clock_count()
 #else 
 #error "architecture not supported"

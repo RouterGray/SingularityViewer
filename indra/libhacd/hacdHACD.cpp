@@ -16,7 +16,7 @@
 #include "hacdGraph.h"
 #include "hacdHACD.h"
 #include "hacdICHull.h"
-#include <string.h>
+#include <cstring>
 #include <algorithm>
 #include <iterator>
 #include <limits>

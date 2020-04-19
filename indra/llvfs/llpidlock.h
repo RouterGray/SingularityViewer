@@ -38,7 +38,7 @@ class LLSD;
 class LLFrameTimer;
 
 #if !LL_WINDOWS	//For non-windows platforms.
-#include <signal.h>
+#include <csignal>
 #endif
 
 namespace LLPidLock

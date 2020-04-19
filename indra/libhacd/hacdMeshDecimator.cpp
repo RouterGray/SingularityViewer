@@ -1,6 +1,6 @@
 #include <sstream>
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <algorithm>
 #include <vector>
 #include "hacdMeshDecimator.h"

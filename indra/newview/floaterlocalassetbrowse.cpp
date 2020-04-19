@@ -56,7 +56,7 @@ this feature is still a work in progress.
 #include "lluictrlfactory.h"
 
 /* misc headers */
-#include <time.h>
+#include <ctime>
 #include <ctime>
 #include "llviewertexturelist.h"
 #include "llviewerobjectlist.h"

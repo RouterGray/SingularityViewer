@@ -75,7 +75,7 @@
 #elif USE_SHM_OPEN_SHARED_MEMORY
 	#include <sys/fcntl.h>
 	#include <sys/mman.h>
-	#include <errno.h>
+	#include <cerrno>
 #elif USE_WIN32_SHARED_MEMORY
 #include <windows.h>
 #endif // USE_APR_SHARED_MEMORY

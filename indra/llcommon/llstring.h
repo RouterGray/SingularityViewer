@@ -42,11 +42,11 @@
 // [/RLVa:KB]
 
 #if LL_LINUX || LL_SOLARIS
-#include <wctype.h>
-#include <wchar.h>
+#include <cwctype>
+#include <cwchar>
 #endif
 
-#include <string.h>
+#include <cstring>
 #include <boost/scoped_ptr.hpp>
 
 #if LL_SOLARIS

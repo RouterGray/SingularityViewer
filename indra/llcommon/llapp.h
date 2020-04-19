@@ -38,7 +38,7 @@ typedef LLAtomic32<U32> LLAtomicU32;
 class LLErrorThread;
 class LLLiveFile;
 #if LL_LINUX
-#include <signal.h>
+#include <csignal>
 #endif
 
 typedef void (*LLAppErrorHandler)();

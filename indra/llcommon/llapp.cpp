@@ -56,7 +56,7 @@
 LONG WINAPI default_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop);
 BOOL ConsoleCtrlHandler(DWORD fdwCtrlType);
 #else
-# include <signal.h>
+# include <csignal>
 # include <unistd.h> // for fork()
 # include "apr_signal.h" // for apr_signal_description_get(int signum)
 void setup_signals();

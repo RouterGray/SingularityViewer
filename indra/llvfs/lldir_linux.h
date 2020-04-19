@@ -40,7 +40,7 @@
 #include "lldir.h"
 
 #include <dirent.h>
-#include <errno.h>
+#include <cerrno>
 
 class LLDir_Linux : public LLDir
 {

@@ -204,9 +204,9 @@ void LLProcessLauncher::reap(void)
 
 #else // Mac and linux
 
-#include <signal.h>
+#include <csignal>
 #include <fcntl.h>
-#include <errno.h>
+#include <cerrno>
 
 static std::list<pid_t> sZombies;
 

@@ -38,7 +38,7 @@
 #include <mono/metadata/tokentype.h>
 #include <mono/metadata/debug-helpers.h>
 #include <mono/metadata/llassembly.h>
-#include <string.h>
+#include <cstring>
 
 #include "stdtypes.h"
 #include "linden_common.h"

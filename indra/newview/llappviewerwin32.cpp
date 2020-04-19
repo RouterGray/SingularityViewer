@@ -53,7 +53,7 @@
 #include "nvapi/NvApiDriverSettings.h"
 #endif
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "llweb.h"
 #include "llsecondlifeurls.h"

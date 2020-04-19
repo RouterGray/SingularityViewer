@@ -16,9 +16,9 @@
 #ifndef HACD_SARRAY_H
 #define HACD_SARRAY_H
 #include "hacdVersion.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 #define SARRAY_DEFAULT_MIN_SIZE 16
 
 namespace HACD

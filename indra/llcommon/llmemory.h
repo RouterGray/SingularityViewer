@@ -32,7 +32,7 @@
 #include <new>
 #include <cstdlib>
 #if !LL_WINDOWS
-#include <stdint.h>		// uintptr_t
+#include <cstdint>		// uintptr_t
 #endif
 
 class LLMutex ;

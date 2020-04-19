@@ -41,7 +41,7 @@
 #include "llpluginmessageclasses.h"
 #include "media_plugin_base.h"
 
-#include <time.h>
+#include <ctime>
 
 ////////////////////////////////////////////////////////////////////////////////
 //

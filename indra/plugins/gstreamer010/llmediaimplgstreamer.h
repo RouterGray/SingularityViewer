@@ -41,7 +41,7 @@
 #if LL_GSTREAMER010_ENABLED
 
 extern "C" {
-#include <stdio.h>
+#include <cstdio>
 #include <gst/gst.h>
 
 #include "apr_pools.h"

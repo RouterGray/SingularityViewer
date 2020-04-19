@@ -15,7 +15,7 @@
 #pragma once
 #ifndef HACD_CIRCULAR_LIST_H
 #define HACD_CIRCULAR_LIST_H
-#include <stdlib.h>
+#include <cstdlib>
 #include "hacdVersion.h"
 #include "hacdMicroAllocator.h"
 namespace HACD

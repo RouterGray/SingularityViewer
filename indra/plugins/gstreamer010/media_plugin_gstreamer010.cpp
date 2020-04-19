@@ -38,8 +38,8 @@
 // Needed for _getcwd() RC 
 #ifdef LL_WINDOWS
 #include <direct.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #endif
 
 #ifdef LL_DARWIN

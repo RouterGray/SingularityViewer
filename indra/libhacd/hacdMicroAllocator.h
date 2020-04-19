@@ -61,7 +61,7 @@
 // This kind of a micro-allocator is ideal for use with STL as it does many tiny allocations.
 // All allocations are 16 byte aligned (with the exception of the 8 byte allocations, which are 8 byte aligned every other one).
 //
-#include <stdio.h>
+#include <cstdio>
 
 #ifdef WIN32
 	typedef __int64				NxI64;

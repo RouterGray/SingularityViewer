@@ -39,7 +39,7 @@
  * g++ -O3 -DCWDEBUG -DSYNC_TESTSUITE -I. -I../cwdebug aisyncclient.cpp -lcwd
  */
 
-#include <stdint.h>
+#include <cstdint>
 #include <cassert>
 typedef uint32_t U32;
 typedef int32_t S32;

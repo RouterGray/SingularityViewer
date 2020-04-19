@@ -4,7 +4,7 @@
 #include "stdtypes.h"
 #include "llhost.h"
 #include <queue>
-#include <string.h>
+#include <cstring>
 
 class LLMessageSystem;
 class LLMessageLogEntry

@@ -17,10 +17,10 @@
 /* First, we deal with  platform-specific or compiler-specific issues. */
 
 /* begin standard C headers. */
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cerrno>
+#include <cstdlib>
 
 /* end standard C headers. */
 
@@ -33,7 +33,7 @@
 
 #if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 
-/* C99 says to define __STDC_LIMIT_MACROS before including stdint.h,
+/* C99 says to define __STDC_LIMIT_MACROS before including cstdint,
  * if you want the limit (max/min) macros for int types. 
  */
 #ifndef __STDC_LIMIT_MACROS

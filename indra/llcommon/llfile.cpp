@@ -29,9 +29,9 @@
 
 #if LL_WINDOWS
 #include "llwin32headerslean.h"
-#include <stdlib.h>                 // Windows errno
+#include <cstdlib>                 // Windows errno
 #else
-#include <errno.h>
+#include <cerrno>
 #endif
 
 #include "linden_common.h"

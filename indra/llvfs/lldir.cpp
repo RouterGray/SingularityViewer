@@ -30,7 +30,7 @@
 #if !LL_WINDOWS
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <errno.h>
+#include <cerrno>
 #else
 #include <direct.h>
 #endif

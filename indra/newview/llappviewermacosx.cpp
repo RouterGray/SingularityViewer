@@ -47,7 +47,7 @@
 #include "llurldispatcher.h"
 #include <Carbon/Carbon.h>
 #include "lldir.h"
-#include <signal.h>
+#include <csignal>
 class LLWebBrowserCtrl;		// for LLURLDispatcher
 
 namespace 

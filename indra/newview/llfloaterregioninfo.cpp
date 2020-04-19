@@ -4209,7 +4209,7 @@ const std::string& getNAString()
 }
 
 #if defined(__GNUC__) && __GNUC__ < 5 // On GCC 4, implement std::get_time using strptime
-#include <time.h>
+#include <ctime>
 
 namespace std
 {

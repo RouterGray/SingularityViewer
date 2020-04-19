@@ -34,7 +34,7 @@
 #ifndef LL_LLRESMGR_H
 #define LL_LLRESMGR_H
 
-#include "locale.h"
+#include "clocale"
 #include "stdtypes.h"
 #include "llstring.h"
 #include "llmemory.h"

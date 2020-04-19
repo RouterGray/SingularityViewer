@@ -34,8 +34,8 @@
 
 #include "llvoavatar.h"
 
-#include <stdio.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cctype>
 
 #include "llaudioengine.h"
 #include "llperlin.h"

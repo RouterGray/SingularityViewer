@@ -50,7 +50,7 @@
 #endif
 
 #if LL_DARWIN || LL_LINUX
-	#include <signal.h>
+	#include <csignal>
 #endif
 
 /*

@@ -22,7 +22,7 @@
 #include "lltimer.h"
 #include "llscrolllistctrl.h"
 
-#include <time.h>
+#include <ctime>
 #include <bitset>
 #include <map>
 #include <set>

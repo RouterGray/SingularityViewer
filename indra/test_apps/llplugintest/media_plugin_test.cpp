@@ -41,8 +41,8 @@
 
 #include <string>
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 #include "llmediaplugintest.h" // for GLUT headers
 

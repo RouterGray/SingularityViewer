@@ -26,7 +26,7 @@
  */
 
 
-#include <string.h>
+#include <cstring>
 #include <memory>
 #include "llconvexdecompositionstubimpl.h"
 

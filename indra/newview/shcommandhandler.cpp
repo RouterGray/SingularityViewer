@@ -9,7 +9,7 @@
 #include "llhudtext.h"
 
 #include <boost/tokenizer.hpp>
-#include <ctype.h>
+#include <cctype>
 
 #include "shcommandhandler.h"
 

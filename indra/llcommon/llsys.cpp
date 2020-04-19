@@ -57,10 +57,10 @@ using namespace llsd;
 #   include <psapi.h>               // GetPerformanceInfo() et al.
 #	include <VersionHelpers.h>
 #elif LL_DARWIN
-#	include <errno.h>
+#	include <cerrno>
 #	include <sys/sysctl.h>
 #	include <sys/utsname.h>
-#	include <stdint.h>
+#	include <cstdint>
 #	include <Carbon/Carbon.h>
 #   include <stdexcept>
 #	include <mach/host_info.h>
@@ -68,7 +68,7 @@ using namespace llsd;
 #	include <mach/task.h>
 #	include <mach/task_info.h>
 #elif LL_LINUX
-#	include <errno.h>
+#	include <cerrno>
 #	include <sys/utsname.h>
 #	include <unistd.h>
 #	include <sys/sysinfo.h>
@@ -76,7 +76,7 @@ using namespace llsd;
 const char MEMINFO_FILE[] = "/proc/meminfo";
 #   include <gnu/libc-version.h>
 #elif LL_SOLARIS
-#	include <stdio.h>
+#	include <cstdio>
 #	include <unistd.h>
 #	include <sys/utsname.h>
 #	define _STRUCTURED_PROC 1
@@ -84,7 +84,7 @@ const char MEMINFO_FILE[] = "/proc/meminfo";
 #	include <sys/types.h>
 #	include <sys/stat.h>
 #	include <fcntl.h>
-#	include <errno.h>
+#	include <cerrno>
 extern int errno;
 #endif
 

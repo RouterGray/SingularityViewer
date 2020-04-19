@@ -23,7 +23,7 @@
 #include "lltrans.h"
 #include "llviewerobjectlist.h"
 
-#include <time.h>
+#include <ctime>
 #include <boost/lexical_cast.hpp>
 
 class NACLAntiSpamQueue
