@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /**
 * @file LLCoprocedurePool.cpp
 * @author Rider Linden
@@ -29,8 +27,10 @@
 
 #include "linden_common.h" 
 #include "llcoproceduremanager.h"
+
 #include "llexception.h"
 #include "stringize.h"
+#include <utility>
 
 //=========================================================================
 // Map of pool sizes for known pools
@@ -52,11 +52,9 @@ public:
     LLCoprocedurePool(const std::string &name, size_t size);
     virtual ~LLCoprocedurePool();
 
-protected:
 	LLCoprocedurePool(const LLCoprocedurePool&) = delete;
 	LLCoprocedurePool& operator=(const LLCoprocedurePool&) = delete;
 
-public:
     /// Places the coprocedure on the queue for processing. 
     /// 
     /// @param name Is used for debugging and should identify this coroutine.
@@ -98,12 +96,12 @@ public:
 private:
     struct QueuedCoproc
     {
-        typedef boost::shared_ptr<QueuedCoproc> ptr_t;
+        typedef std::shared_ptr<QueuedCoproc> ptr_t;
 
-        QueuedCoproc(const std::string &name, const LLUUID &id, CoProcedure_t proc) :
-            mName(name),
+        QueuedCoproc(std::string name, const LLUUID &id, CoProcedure_t proc) :
+            mName(std::move(name)),
             mId(id),
-            mProc(proc)
+            mProc(std::move(proc))
         {}
 
         std::string mName;
@@ -227,9 +225,9 @@ void LLCoprocedureManager::setPropertyMethods(SettingQuery_t queryfn, SettingUpd
 size_t LLCoprocedureManager::countPending() const
 {
     size_t count = 0;
-    for (poolMap_t::const_iterator it = mPoolMap.begin(); it != mPoolMap.end(); ++it)
+    for (const auto& it : mPoolMap)
     {
-        count += (*it).second->countPending();
+        count += it.second->countPending();
     }
     return count;
 }
@@ -246,9 +244,9 @@ size_t LLCoprocedureManager::countPending(const std::string &pool) const
 size_t LLCoprocedureManager::countActive() const
 {
     size_t count = 0;
-    for (poolMap_t::const_iterator it = mPoolMap.begin(); it != mPoolMap.end(); ++it)
+    for (const auto& it : mPoolMap)
     {
-        count += (*it).second->countActive();
+        count += it.second->countActive();
     }
     return count;
 }
@@ -265,9 +263,9 @@ size_t LLCoprocedureManager::countActive(const std::string &pool) const
 size_t LLCoprocedureManager::count() const
 {
     size_t count = 0;
-    for (poolMap_t::const_iterator it = mPoolMap.begin(); it != mPoolMap.end(); ++it)
+    for (const auto& it : mPoolMap)
     {
-        count += (*it).second->count();
+        count += it.second->count();
     }
     return count;
 }
@@ -293,7 +291,7 @@ LLCoprocedurePool::LLCoprocedurePool(const std::string &poolName, size_t size):
 {
     for (size_t count = 0; count < mPoolSize; ++count)
     {
-        LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter( mPoolName + "Adapter", mHTTPPolicy));
+        auto httpAdapter = std::make_shared<LLCoreHttpUtil::HttpCoroutineAdapter>( mPoolName + "Adapter", mHTTPPolicy);
 
         std::string pooledCoro = LLCoros::instance().launch("LLCoprocedurePool("+mPoolName+")::coprocedureInvokerCoro",
             boost::bind(&LLCoprocedurePool::coprocedureInvokerCoro, this, httpAdapter));
@@ -338,7 +336,7 @@ LLUUID LLCoprocedurePool::enqueueCoprocedure(const std::string &name, LLCoproced
 {
     LLUUID id(LLUUID::generateNewID());
 
-    mPendingCoprocs.push_back(boost::make_shared<QueuedCoproc>(name, id, proc));
+    mPendingCoprocs.push_back(std::make_shared<QueuedCoproc>(name, id, proc));
     LL_INFOS() << "Coprocedure(" << name << ") enqueued with id=" << id.asString() << " in pool \"" << mPoolName << "\"" << LL_ENDL;
 
     mWakeupTrigger.post(LLSD());
@@ -375,7 +373,7 @@ bool LLCoprocedurePool::cancelCoprocedure(const LLUUID &id)
 //-------------------------------------------------------------------------
 void LLCoprocedurePool::coprocedureInvokerCoro(LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t httpAdapter)
 {
-    LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
+    auto httpRequest = std::make_shared<LLCore::HttpRequest>();
 
     while (!mShutdown)
     {

@@ -61,18 +61,18 @@ class HttpResponse : public LLCoreInt::RefCounted
 {
 public:
 	HttpResponse();
-
-protected:
-	virtual ~HttpResponse();							// Use release()
 	
 	HttpResponse(const HttpResponse &) = delete;					// Not defined
 	HttpResponse& operator=(const HttpResponse &) = delete;				// Not defined
-	
+
+protected:
+	virtual ~HttpResponse();							// Use release()
+
 public:
 	/// Statistics for the HTTP 
 	struct TransferStats
 	{
-		typedef boost::shared_ptr<TransferStats> ptr_t;
+		typedef std::shared_ptr<TransferStats> ptr_t;
 
 		TransferStats() : mSizeDownload(0.0), mTotalTime(0.0), mSpeedDownload(0.0) {}
 		F64 mSizeDownload;

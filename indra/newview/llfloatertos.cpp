@@ -246,11 +246,10 @@ void LLFloaterTOS::testSiteIsAliveCoro(LLHandle<LLFloater> handle, std::string u
     LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
         httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("genericPostCoro", httpPolicy));
     LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
-    LLCore::HttpOptions::ptr_t httpOpts = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
-
+    LLCore::HttpOptions::ptr_t httpOpts = std::make_shared<LLCore::HttpOptions>();
 
     httpOpts->setWantHeaders(true);
-
+	httpOpts->setHeadersOnly(true);
 
     LL_INFOS("testSiteIsAliveCoro") << "Generic POST for " << url << LL_ENDL;
 

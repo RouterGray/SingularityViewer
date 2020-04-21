@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
  * @file llmediadataclient.cpp
  * @brief class for queueing up requests for media data
@@ -658,7 +656,7 @@ void LLMediaDataClient::Handler::onFailure(LLCore::HttpResponse * response, LLCo
 void LLObjectMediaDataClient::fetchMedia(LLMediaDataClientObject *object)
 {
 	// Create a get request and put it in the queue.
-	enqueue(boost::static_pointer_cast<Request>(boost::make_shared<RequestGet>(object, this)));
+	enqueue(std::static_pointer_cast<Request>(std::make_shared<RequestGet>(object, this)));
 }
 
 const char *LLObjectMediaDataClient::getCapabilityName() const 
@@ -871,14 +869,14 @@ LLSD LLObjectMediaDataClient::RequestGet::getPayload() const
 
 LLCore::HttpHandler::ptr_t LLObjectMediaDataClient::RequestGet::createHandler()
 {
-    return boost::static_pointer_cast<LLCore::HttpHandler>(boost::make_shared<LLObjectMediaDataClient::Handler>(shared_from_this()));
+    return std::static_pointer_cast<LLCore::HttpHandler>(std::make_shared<LLObjectMediaDataClient::Handler>(shared_from_this()));
 }
 
 
 void LLObjectMediaDataClient::updateMedia(LLMediaDataClientObject *object)
 {
 	// Create an update request and put it in the queue.
-	enqueue(boost::static_pointer_cast<Request>(boost::make_shared<RequestUpdate>(object, this)));
+	enqueue(std::static_pointer_cast<Request>(std::make_shared<RequestUpdate>(object, this)));
 }
 
 LLObjectMediaDataClient::RequestUpdate::RequestUpdate(LLMediaDataClientObject *obj, LLMediaDataClient *mdc):
@@ -908,7 +906,7 @@ LLSD LLObjectMediaDataClient::RequestUpdate::getPayload() const
 LLCore::HttpHandler::ptr_t LLObjectMediaDataClient::RequestUpdate::createHandler()
 {
 	// This just uses the base class's responder.
-    return boost::static_pointer_cast<LLCore::HttpHandler>(boost::make_shared<LLMediaDataClient::Handler>(shared_from_this()));
+    return std::static_pointer_cast<LLCore::HttpHandler>(std::make_shared<LLMediaDataClient::Handler>(shared_from_this()));
 }
 
 void LLObjectMediaDataClient::Handler::onSuccess(LLCore::HttpResponse * response, const LLSD &content)
@@ -1019,7 +1017,7 @@ void LLObjectMediaNavigateClient::navigate(LLMediaDataClientObject *object, U8 t
 //	LL_INFOS("LLMediaDataClient") << "navigate() initiated: " << ll_print_sd(sd_payload) << LL_ENDL;
 	
 	// Create a get request and put it in the queue.
-	enqueue(boost::static_pointer_cast<Request>(boost::make_shared<RequestNavigate>(object, this, texture_index, url)));
+	enqueue(std::static_pointer_cast<Request>(std::make_shared<RequestNavigate>(object, this, texture_index, url)));
 }
 
 LLObjectMediaNavigateClient::RequestNavigate::RequestNavigate(LLMediaDataClientObject *obj, LLMediaDataClient *mdc, U8 texture_index, const std::string &url):
@@ -1040,7 +1038,7 @@ LLSD LLObjectMediaNavigateClient::RequestNavigate::getPayload() const
 
 LLCore::HttpHandler::ptr_t LLObjectMediaNavigateClient::RequestNavigate::createHandler()
 {
-    return boost::static_pointer_cast<LLCore::HttpHandler>(boost::make_shared<LLObjectMediaNavigateClient::Handler>(shared_from_this()));
+    return std::static_pointer_cast<LLCore::HttpHandler>(std::make_shared<LLObjectMediaNavigateClient::Handler>(shared_from_this()));
 }
 
 void LLObjectMediaNavigateClient::Handler::onSuccess(LLCore::HttpResponse * response, const LLSD &content)

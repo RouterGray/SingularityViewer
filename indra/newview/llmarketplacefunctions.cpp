@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
  * @file llmarketplacefunctions.cpp
  * @brief Implementation of assorted functions related to the marketplace
@@ -300,7 +298,7 @@ namespace LLMarketplaceImport
 
         if (buildHeaders)
         {
-            httpHeaders = boost::make_shared<LLCore::HttpHeaders>();
+            httpHeaders = std::make_shared<LLCore::HttpHeaders>();
 
             httpHeaders->append(HTTP_OUT_HEADER_ACCEPT, "*/*");
             httpHeaders->append(HTTP_OUT_HEADER_COOKIE, sMarketplaceCookie);

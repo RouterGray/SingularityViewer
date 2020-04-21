@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /**
  * @file _httpoprequest.cpp
  * @brief Definitions for internal class HttpOpRequest
@@ -204,14 +202,14 @@ HttpOpRequest::~HttpOpRequest()
 
 void HttpOpRequest::stageFromRequest(HttpService * service)
 {
-    HttpOpRequest::ptr_t self(boost::dynamic_pointer_cast<HttpOpRequest>(shared_from_this()));
+    HttpOpRequest::ptr_t self(std::dynamic_pointer_cast<HttpOpRequest>(shared_from_this()));
     service->getPolicy().addOp(self);			// transfers refcount
 }
 
 
 void HttpOpRequest::stageFromReady(HttpService * service)
 {
-    HttpOpRequest::ptr_t self(boost::dynamic_pointer_cast<HttpOpRequest>(shared_from_this()));
+    HttpOpRequest::ptr_t self(std::dynamic_pointer_cast<HttpOpRequest>(shared_from_this()));
     service->getTransport().addOp(self);		// transfers refcount
 }
 
@@ -272,7 +270,7 @@ void HttpOpRequest::visitNotifier(HttpRequest * request)
 		response->setContentType(mReplyConType);
 		response->setRetries(mPolicyRetries, mPolicy503Retries);
 		
-		HttpResponse::TransferStats::ptr_t stats = boost::make_shared<HttpResponse::TransferStats>();
+		HttpResponse::TransferStats::ptr_t stats = std::make_shared<HttpResponse::TransferStats>();
 
 		curl_easy_getinfo(mCurlHandle, CURLINFO_SIZE_DOWNLOAD, &stats->mSizeDownload);
 		curl_easy_getinfo(mCurlHandle, CURLINFO_TOTAL_TIME, &stats->mTotalTime);
@@ -290,7 +288,7 @@ void HttpOpRequest::visitNotifier(HttpRequest * request)
 // HttpOpRequest::ptr_t HttpOpRequest::fromHandle(HttpHandle handle)
 // {
 // 
-//     return boost::dynamic_pointer_cast<HttpOpRequest>((static_cast<HttpOpRequest *>(handle))->shared_from_this());
+//     return std::dynamic_pointer_cast<HttpOpRequest>((static_cast<HttpOpRequest *>(handle))->shared_from_this());
 // }
 
 
@@ -561,6 +559,11 @@ HttpStatus HttpOpRequest::prepareRequest(HttpService * service)
 	// about 700 or so requests and starts issuing TCP RSTs to
 	// new connections.  Reuse the DNS lookups for even a few
 	// seconds and no RSTs.
+	//
+	// -1 stores forever
+	// 0  never stores
+	// any other positive number specifies seconds
+	// supposedly curl 7.62.0 can use TTL by default, otherwise default is 60 seconds
 	check_curl_easy_setopt(mCurlHandle, CURLOPT_DNS_CACHE_TIMEOUT, dnsCacheTimeout);
 
 	if (gpolicy.mUseLLProxy)
@@ -950,7 +953,7 @@ size_t HttpOpRequest::headerCallback(void * data, size_t size, size_t nmemb, voi
 		// Save headers in response
 		if (! op->mReplyHeaders)
 		{
-			op->mReplyHeaders = boost::make_shared<HttpHeaders>();
+			op->mReplyHeaders = std::make_shared<HttpHeaders>();
 		}
 		op->mReplyHeaders->append(name, value ? value : "");
 	}
@@ -1163,14 +1166,17 @@ int parse_content_range_header(char * buffer,
 {
 	static const char * const hdr_whitespace(" \t");
 
-	char * tok_state(NULL), * tok(NULL);
+	char* tok_state(NULL);
 	bool match(true);
 			
-	if (! (tok = os_strtok_r(buffer, hdr_whitespace, &tok_state)))
+	char* tok = os_strtok_r(buffer, hdr_whitespace, &tok_state);
+	if (!tok)
 		match = false;
 	else
 		match = (0 == os_strcasecmp("bytes", tok));
-	if (match && ! (tok = os_strtok_r(NULL, hdr_whitespace, &tok_state)))
+
+	tok = os_strtok_r(NULL, hdr_whitespace, &tok_state);
+	if (match && !tok)
 		match = false;
 	if (match)
 	{
@@ -1287,7 +1293,7 @@ char * os_strtok_r(char *str, const char *delim, char ** savestate)
 
 void os_strlower(char * str)
 {
-	for (char c(0); (c = *str); ++str)
+	for (char c = 0; (c = *str); ++str)
 	{
 		*str = tolower(c);
 	}

@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
  * @file llaisapi.cpp
  * @brief classes and functions for interfacing with the v3+ ais inventory service. 
@@ -394,7 +392,7 @@ void AISAPI::InvokeAISCommandCoro(LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t ht
 {
     LLCore::HttpOptions::ptr_t httpOptions(new LLCore::HttpOptions);
     LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest());
-    LLCore::HttpHeaders::ptr_t httpHeaders;
+    auto httpHeaders = std::make_shared<LLCore::HttpHeaders>();
 
     httpOptions->setTimeout(LLCoreHttpUtil::HTTP_REQUEST_EXPIRY_SECS);
 

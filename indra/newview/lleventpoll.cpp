@@ -93,7 +93,7 @@ namespace Details
 	{
         LLAppCoreHttp & app_core_http(LLAppViewer::instance()->getAppCoreHttp());
 
-        mHttpRequest = LLCore::HttpRequest::ptr_t(new LLCore::HttpRequest);
+        mHttpRequest = std::make_shared<LLCore::HttpRequest>();
         mHttpPolicy = app_core_http.getPolicy(LLAppCoreHttp::AP_LONG_POLL);
         mSenderIp = sender.getIPandPort();
 	}
@@ -168,7 +168,7 @@ namespace Details
 
             if (!status)
             {
-                if (status == LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_OPERATION_TIMEDOUT))
+                if (status == LLCore::HttpStatus(LLCore::HttpStatus::EXT_CURL_EASY, CURLE_OPERATION_TIMEDOUT) || status == LLCore::HttpStatus(HTTP_BAD_GATEWAY))
                 {   // A standard timeout response we get this when there are no events.
                     LL_INFOS("LLEventPollImpl") << "All is very quiet on target server. It may have gone idle?" << LL_ENDL;
                     errorCount = 0;
@@ -275,8 +275,7 @@ namespace Details
 LLEventPoll::LLEventPoll(const std::string&	poll_url, const LLHost& sender):
     mImpl()
 { 
-    mImpl = boost::unique_ptr<LLEventPolling::Details::LLEventPollImpl>
-            (new LLEventPolling::Details::LLEventPollImpl(sender));
+    mImpl = std::make_shared<LLEventPolling::Details::LLEventPollImpl>(sender);
     mImpl->start(poll_url);
 }
 

@@ -186,7 +186,7 @@ void LLFloaterURLEntry::onBtnOK( void* userdata )
 	std::string scheme = url.scheme();
 
 	// We assume that an empty scheme is an http url, as this is how we will treat it.
-	if(scheme == "")
+	if(scheme.empty())
 	{
 		scheme = "http";
 	}
@@ -216,7 +216,7 @@ void LLFloaterURLEntry::getMediaTypeCoro(std::string url, LLHandle<LLFloater> pa
     LLCoreHttpUtil::HttpCoroutineAdapter::ptr_t
         httpAdapter(new LLCoreHttpUtil::HttpCoroutineAdapter("getMediaTypeCoro", httpPolicy));
     LLCore::HttpRequest::ptr_t httpRequest(new LLCore::HttpRequest);
-    LLCore::HttpOptions::ptr_t httpOpts = LLCore::HttpOptions::ptr_t(new LLCore::HttpOptions);
+    LLCore::HttpOptions::ptr_t httpOpts = std::make_shared<LLCore::HttpOptions>();
 
     httpOpts->setHeadersOnly(true);
 
@@ -249,7 +249,7 @@ void LLFloaterURLEntry::getMediaTypeCoro(std::string url, LLHandle<LLFloater> pa
     if (resultHeaders.has(HTTP_IN_HEADER_CONTENT_TYPE))
     {
         const std::string& mediaType = resultHeaders[HTTP_IN_HEADER_CONTENT_TYPE];
-        std::string::size_type idx1 = mediaType.find_first_of(";");
+        std::string::size_type idx1 = mediaType.find_first_of(';');
         std::string mimeType = mediaType.substr(0, idx1);
         if (!mimeType.empty())
         {

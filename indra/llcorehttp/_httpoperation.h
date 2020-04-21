@@ -69,12 +69,12 @@ class HttpService;
 /// and those interfaces establish the access rules.
 
 class HttpOperation :
-    public boost::enable_shared_from_this<HttpOperation>
+    public std::enable_shared_from_this<HttpOperation>
 {
 public:
-    typedef boost::shared_ptr<HttpOperation> ptr_t;
-    typedef boost::weak_ptr<HttpOperation> wptr_t;
-    typedef boost::shared_ptr<HttpReplyQueue> HttpReplyQueuePtr_t;
+    typedef std::shared_ptr<HttpOperation> ptr_t;
+    typedef std::weak_ptr<HttpOperation> wptr_t;
+    typedef std::shared_ptr<HttpReplyQueue> HttpReplyQueuePtr_t;
 
 	/// Threading:  called by consumer thread.
 	HttpOperation();
@@ -82,11 +82,9 @@ public:
 	/// Threading:  called by any thread.
 	virtual ~HttpOperation();							// Use release()
 
-protected:
 	HttpOperation(const HttpOperation&) = delete;
 	HttpOperation& operator=(const HttpOperation&) = delete;
 
-public:
 	/// Register a reply queue and a handler for completion notifications.
 	///
 	/// Invokers of operations that want to receive notification that an
@@ -160,12 +158,12 @@ public:
     HttpHandle getHandle();
 
     template< class OPT >
-    static boost::shared_ptr< OPT > fromHandle(HttpHandle handle)
+    static std::shared_ptr< OPT > fromHandle(HttpHandle handle)
     {
         ptr_t ptr = findByHandle(handle);
         if (!ptr)
-            return boost::shared_ptr< OPT >();
-        return boost::dynamic_pointer_cast< OPT >(ptr);
+            return std::shared_ptr< OPT >();
+        return std::dynamic_pointer_cast< OPT >(ptr);
     }
 	
 protected:
@@ -227,11 +225,9 @@ public:
 
 	virtual ~HttpOpStop();
 
-private:
 	HttpOpStop(const HttpOpStop &) = delete;					// Not defined
 	HttpOpStop& operator=(const HttpOpStop &) = delete;			// Not defined
 
-public:
 	void stageFromRequest(HttpService *) override;
 
 };  // end class HttpOpStop
@@ -249,11 +245,9 @@ public:
 
 	virtual ~HttpOpNull();
 
-private:
 	HttpOpNull(const HttpOpNull &) = delete;					// Not defined
 	HttpOpNull& operator=(const HttpOpNull &) = delete;			// Not defined
 
-public:
 	void stageFromRequest(HttpService *) override;
 
 };  // end class HttpOpNull
@@ -271,11 +265,9 @@ public:
 
 	virtual ~HttpOpSpin();
 
-private:
 	HttpOpSpin(const HttpOpSpin &) = delete;					// Not defined
 	HttpOpSpin& operator=(const HttpOpSpin &) = delete;			// Not defined
 
-public:
 	void stageFromRequest(HttpService *) override;
 
 protected:

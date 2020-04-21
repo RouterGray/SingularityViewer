@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
  * @file llavatarnamecache.cpp
  * @brief Provides lookup of avatar SLIDs ("bobsmith123") and display names
@@ -493,9 +491,9 @@ void LLAvatarNameCache::initClass(bool running, bool usePeopleAPI)
 	sRunning = running;
 	sUsePeopleAPI = usePeopleAPI;
 
-    sHttpRequest = boost::make_shared<LLCore::HttpRequest>();
-    sHttpHeaders = boost::make_shared<LLCore::HttpHeaders>();
-    sHttpOptions = boost::make_shared<LLCore::HttpOptions>();
+    sHttpRequest = std::make_shared<LLCore::HttpRequest>();
+    sHttpHeaders = std::make_shared<LLCore::HttpHeaders>();
+    sHttpOptions = std::make_shared<LLCore::HttpOptions>();
     sHttpPolicy = LLCore::HttpRequest::DEFAULT_POLICY_ID;
     sHttpPriority = 0;
 }

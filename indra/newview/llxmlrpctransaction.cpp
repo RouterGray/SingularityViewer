@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
  * @file llxmlrpctransaction.cpp
  * @brief LLXMLRPCTransaction and related class implementations 
@@ -170,7 +168,7 @@ public:
 
 	void onCompleted(LLCore::HttpHandle handle, LLCore::HttpResponse * response) override;
 
-	typedef boost::shared_ptr<LLXMLRPCTransaction::Handler> ptr_t;
+	typedef std::shared_ptr<LLXMLRPCTransaction::Handler> ptr_t;
 
 private:
 
@@ -349,11 +347,11 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 
 	if (!mHttpRequest)
 	{
-		mHttpRequest = boost::make_shared<LLCore::HttpRequest>();
+		mHttpRequest = std::make_shared<LLCore::HttpRequest>();
 	}
 
 	// LLRefCounted starts with a 1 ref, so don't add a ref in the smart pointer
-	httpOpts = boost::make_shared<LLCore::HttpOptions>(); 
+	httpOpts = std::make_shared<LLCore::HttpOptions>(); 
 
 	httpOpts->setMinBackoff(5E6L);
 	httpOpts->setMaxBackoff(20E6L);
@@ -371,7 +369,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	httpOpts->setSSLVerifyHost(vefifySSLCert);
 
 	// LLRefCounted starts with a 1 ref, so don't add a ref in the smart pointer
-	httpHeaders = boost::make_shared<LLCore::HttpHeaders>();
+	httpHeaders = std::make_shared<LLCore::HttpHeaders>();
 
 	httpHeaders->append(HTTP_OUT_HEADER_CONTENT_TYPE, HTTP_CONTENT_TEXT_XML);
 
@@ -390,7 +388,7 @@ void LLXMLRPCTransaction::Impl::init(XMLRPC_REQUEST request, bool useGzip, const
 	
 	XMLRPC_Free(requestText);
 
-	mHandler = boost::make_shared<Handler>(mHttpRequest, this);
+	mHandler = std::make_shared<Handler>(mHttpRequest, this);
 
 	mPostH = mHttpRequest->requestPost(LLCore::HttpRequest::DEFAULT_POLICY_ID, 0, 
 		mURI, body.get(), httpOpts, httpHeaders, mHandler);

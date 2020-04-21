@@ -1,5 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 /** 
 * @file llpathfindingmanager.cpp
 * @brief Implementation of llpathfindingmanager
@@ -107,7 +105,7 @@ public:
 	void handleTerrainLinksetsResult(const LLSD &pContent);
 	void handleTerrainLinksetsError();
 
-    typedef boost::shared_ptr<LinksetsResponder> ptr_t;
+    typedef std::shared_ptr<LinksetsResponder> ptr_t;
 
 protected:
 

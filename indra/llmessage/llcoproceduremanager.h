@@ -35,7 +35,7 @@
 
 class LLCoprocedurePool;
 
-class LLCoprocedureManager : public LLSingleton < LLCoprocedureManager >
+class LLCoprocedureManager final : public LLSingleton < LLCoprocedureManager >
 {
     LLSINGLETON(LLCoprocedureManager);
     virtual ~LLCoprocedureManager();
@@ -82,7 +82,7 @@ public:
 
 private:
 
-    typedef boost::shared_ptr<LLCoprocedurePool> poolPtr_t;
+    typedef std::shared_ptr<LLCoprocedurePool> poolPtr_t;
     typedef std::map<std::string, poolPtr_t> poolMap_t;
 
     poolMap_t mPoolMap;

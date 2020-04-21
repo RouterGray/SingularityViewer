@@ -62,17 +62,14 @@ class HttpReplyQueue
 {
 
 public:
-    typedef boost::shared_ptr<HttpOperation>    opPtr_t;
-    typedef boost::shared_ptr<HttpReplyQueue>   ptr_t;
+    typedef std::shared_ptr<HttpOperation>    opPtr_t;
+    typedef std::shared_ptr<HttpReplyQueue>   ptr_t;
 
 	HttpReplyQueue();
     virtual ~HttpReplyQueue();	
 
-protected:
 	HttpReplyQueue(const HttpReplyQueue&) = delete;
 	HttpReplyQueue& operator=(const HttpReplyQueue&) = delete;
-
-public:
 
     typedef std::vector< opPtr_t > OpContainer;
 
